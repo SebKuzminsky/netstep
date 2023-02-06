@@ -1,0 +1,33 @@
+loadrt stepgen step_type=0 ctrl_type=p
+loadrt threads name1=fast period1=500000 fp1=0 name2=slow period2=1000000 fp2=1
+loadrt hal_pi_gpio
+
+addf stepgen.make-pulses fast
+addf hal_pi_gpio.write   fast
+
+addf stepgen.capture-position slow
+addf stepgen.update-freq      slow
+
+
+# configure stepgen
+setp stepgen.0.dirhold   1000   # ns to hold DIR after a step pulse
+setp stepgen.0.dirsetup  1000   # ns to hold DIR before a step pulse
+setp stepgen.0.steplen   50000  # ns to hold STEP high when taking a step
+setp stepgen.0.stepspace 50000  # ns to hold STEP low after taking a step
+
+setp stepgen.0.position-scale 1  # 1 "user unit" per step
+
+setp stepgen.0.maxaccel 500   # user-units/second²
+setp stepgen.0.maxvel   1000  # user-units/second
+
+setp stepgen.0.enable 1
+
+
+# connect stepgen to Raspberry Pi GPIO pins
+net step <= stepgen.0.step
+net step => hal_pi_gpio.pin-03-out
+
+net dir <= stepgen.0.dir
+net dir => hal_pi_gpio.pin-05-out
+
+start
