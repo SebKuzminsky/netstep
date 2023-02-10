@@ -25,9 +25,7 @@ h = hal.component("netstep")
 h.newpin("position-cmd", hal.HAL_FLOAT, hal.HAL_OUT)
 h.ready() # mark the component as 'ready'
 
-hal.new_sig("position-cmd", hal.HAL_FLOAT)
 hal.connect("netstep.position-cmd", "position-cmd")
-hal.connect("stepgen.0.position-cmd", "position-cmd")
 
 #try:
 #    while 1:

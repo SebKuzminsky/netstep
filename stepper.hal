@@ -30,4 +30,7 @@ net step => hal_pi_gpio.pin-03-out
 net dir <= stepgen.0.dir
 net dir => hal_pi_gpio.pin-05-out
 
+# make a net/signal to control the stepgen
+net position-cmd => stepgen.0.position-cmd
+
 start
