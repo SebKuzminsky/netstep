@@ -11,14 +11,14 @@ addf stepgen.update-freq      slow
 
 # configure stepgen
 setp stepgen.0.dirhold   1000   # ns to hold DIR after a step pulse
-setp stepgen.0.dirsetup  1000   # ns to hold DIR before a step pulse
-setp stepgen.0.steplen   50000  # ns to hold STEP high when taking a step
-setp stepgen.0.stepspace 50000  # ns to hold STEP low after taking a step
+setp stepgen.0.dirsetup  10000000  # ns to hold DIR before a step pulse
+setp stepgen.0.steplen   1000000  # ns to hold STEP high when taking a step
+setp stepgen.0.stepspace 3000000  # ns to hold STEP low after taking a step
 
 setp stepgen.0.position-scale 1  # 1 "user unit" per step
 
-setp stepgen.0.maxaccel 500   # user-units/second²
-setp stepgen.0.maxvel   1000  # user-units/second
+setp stepgen.0.maxaccel 10000000   # user-units/second²
+setp stepgen.0.maxvel   250  # user-units/second
 
 setp stepgen.0.enable 1
 
