@@ -1,0 +1,27 @@
+loadrt hostmot2
+loadrt hm2_rpspi spiclk_rate=25000
+
+#loadrt stepgen step_type=0 ctrl_type=p
+loadrt threads name2=slow period2=1000000 fp2=1
+
+addf hm2_7i90.0.read  slow
+addf hm2_7i90.0.write slow
+
+
+# configure stepgen
+setp hm2_7i90.0.stepgen.00.dirhold     10000  # ns to hold DIR after a step pulse
+setp hm2_7i90.0.stepgen.00.dirsetup    20000  # ns to hold DIR before a step pulse
+setp hm2_7i90.0.stepgen.00.steplen     30000  # ns to hold STEP high when taking a step
+setp hm2_7i90.0.stepgen.00.stepspace   40000  # ns to hold STEP low after taking a step
+
+setp hm2_7i90.0.stepgen.00.position-scale 1  # 1 "user unit" per step
+
+setp hm2_7i90.0.stepgen.00.maxaccel 1000   # user-units/second²
+setp hm2_7i90.0.stepgen.00.maxvel   250  # user-units/second
+
+setp hm2_7i90.0.stepgen.00.enable 1
+
+# make a net/signal to control the stepgen
+net position-cmd => hm2_7i90.0.stepgen.00.position-cmd
+
+start
